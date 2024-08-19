@@ -18,7 +18,7 @@ const ProcurementDashboard = () => {
           <h1 className="text-2xl font-bold font-lato">Procurement Transparency Dashboard</h1>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6 font-roboto">
-          <div className="bg-white p-6 rounded shadow-md">
+          <div className="bg-white p-6 rounded-lg	 shadow-md">
             <h3 className="text-lg font-semibold">Total Current Tenders</h3>
             <div className="flex items-baseline mt-4">
               <p className="text-2xl font-bold mr-20">85</p>
@@ -26,18 +26,18 @@ const ProcurementDashboard = () => {
               <p className="text-sm text-gray-600">+15 since last week</p>
             </div>
           </div>
-          <div className="bg-white p-6 rounded shadow-md">
+          <div className="bg-white p-6 rounded-lg shadow-md">
             <h2 className="text-lg font-semibold">Total Awarded Contracts</h2>
             <div className="flex items-center justify-between">
               <p className="text-2xl font-bold">95</p>
               <img src={totalAwardPic} alt="totalAward" className="h-16 w-24 ml-4" />
             </div>
           </div>
-          <div className="bg-white p-6 rounded shadow-md">
+          <div className="bg-white p-6 rounded-lg shadow-md">
             <h2 className="text-lg font-semibold">Region with Most Contracts</h2>
             <p className="text-2xl font-bold  mt-4">45 in Selangor</p>
           </div>
-          <div className="bg-white p-6 rounded shadow-md">
+          <div className="bg-white p-6 rounded-lg shadow-md">
             <h2 className="text-lg font-semibold">Upcoming Tender Closure</h2>
             <div className="flex items-baseline mt-2">
               <CheckIcon className="h-4 w-4 text-black-600 mr-2" />
@@ -50,19 +50,19 @@ const ProcurementDashboard = () => {
           </div>
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-5 font-roboto">
-          <div className="bg-white p-6 rounded shadow-md mb-6">
+          <div className="bg-white p-6 rounded-lg shadow-md mb-6">
             <h2 className="text-lg font-semibold">Awarded Contract</h2>
             <div className="h-64 w-full -mt-4">
               <AwardedContractBarChart />
             </div>
           </div>
-          <div className="bg-white p-6 rounded shadow-md mb-6">
+          <div className="bg-white p-6 rounded-lg shadow-md mb-6">
             <h2 className="text-lg font-semibold">Regions & Sectors</h2>
             <div className="h-64">
             </div>
           </div>
         </div>
-        <div className="bg-white p-6 rounded shadow-md">
+        <div className="bg-white p-6 rounded-lg shadow-md">
           <h2 className="text-lg font-semibold">Current Tenders</h2>
           <div className="overflow-auto">
             <table className="min-w-full bg-white">
