@@ -6,7 +6,7 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
 const AwardedContractBarChart = () => {
     const data = {
-        labels: ['Contractor 1', 'Contractor 2', 'Contractor 3', 'Contractor 4', 'Contractor 5', 'Contractor 6', 'Contractor 7', 'Contractor 8', 'Contractor 9', 'Contractor 10'],
+        labels: ['MAJU PERTAMA ENTERPRISE', 'NOVELCO (M) SDN. Ltd.', 'SOH TRADING', 'MEDICA RESOURCES SDN. BHD.', 'XCEED SECURITY SDN. BHD.', 'KHARISMA WIRA SDN. BHD.', 'BAY WATCH ELV SYSTEM SDN. BHD.', 'PTS RESOURCES SDN. BHD.', 'LOTUS SYMPHONY SDN. BHD.', 'HBT FORCE (M) SDN. BHD.'],
         datasets: [
             {
                 label: 'Awarded Contracts',
