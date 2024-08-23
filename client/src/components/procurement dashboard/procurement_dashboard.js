@@ -17,6 +17,9 @@ const ProcurementDashboard = () => {
       <div className={`p-6 bg-gray-100 min-h-screen w-full transition-all duration-300 ${isSidebarOpen ? 'lg:ml-64' : 'lg:ml-20'}`}>
         <div className="flex items-center justify-between mb-4">
           <h1 className="text-2xl font-bold font-lato">Procurement Transparency Dashboard</h1>
+          <button className=" font-bold font-lato ml-4 px-4 py-2 text-tblue bg-white border border-white rounded-lg shadow-md hover:text-blue-700 transition-all duration-200">
+            Login
+          </button>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6 font-roboto">
           <div className="bg-white p-6 rounded-lg	 shadow-md">
