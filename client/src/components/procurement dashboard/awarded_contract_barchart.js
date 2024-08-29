@@ -1,39 +1,77 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
+import axios from 'axios';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 const AwardedContractBarChart = () => {
-    const data = {
-        labels: ['MAJU PERTAMA ENTERPRISE', 'NOVELCO (M) SDN. Ltd.', 'SOH TRADING', 'MEDICA RESOURCES SDN. BHD.', 'XCEED SECURITY SDN. BHD.', 'KHARISMA WIRA SDN. BHD.', 'BAY WATCH ELV SYSTEM SDN. BHD.', 'PTS RESOURCES SDN. BHD.', 'LOTUS SYMPHONY SDN. BHD.', 'HBT FORCE (M) SDN. BHD.'],
+    const [chartData, setChartData] = useState({
+        labels: [],
         datasets: [
             {
                 label: 'Awarded Contracts',
-                data: [12, 19, 3, 5, 2, 3, 7, 9, 10, 12],
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                borderColor: 'rgba(75, 192, 192, 1)',
+                data: [],
+                backgroundColor: [],
+                borderColor: [],
                 borderWidth: 2,
             },
         ],
-    };
+    });
+
+    useEffect(() => {
+        axios.get('/top-companies')
+            .then(response => {
+                const colors = [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)'
+                ];
+                const borderColors = [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)'
+                ];
+
+                setChartData({
+                    labels: response.data.companies,
+                    datasets: [
+                        {
+                            label: 'Awarded Contracts',
+                            data: response.data.counts,
+                            backgroundColor: colors,
+                            borderColor: borderColors,
+                            borderWidth: 2,
+                        },
+                    ],
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
+    }, []);
 
     const options = {
         responsive: true,
-        maintainAspectRatio: false, // Ensure the chart fills the container
+        maintainAspectRatio: false, 
         plugins: {
             legend: {
-                position: 'top',
+                display: false,
             },
             title: {
                 display: true,
+                text: 'Top 5 Companies with Most Awarded Contracts',
             },
         },
     };
 
     return (
         <div style={{ height: '280px', width: '100%' }}>
-            <Bar data={data} options={options} />
+            <Bar data={chartData} options={options} />
         </div>
     );
 };

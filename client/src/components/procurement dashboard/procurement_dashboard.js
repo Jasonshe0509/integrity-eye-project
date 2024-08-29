@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import Sidebar from '../navigation/sidebar';
-import { CheckIcon, ChevronUpIcon, UserIcon } from '@heroicons/react/24/outline';
-import totalAwardPic from '../assets/totalAward.png';
+import {ChevronUpIcon, UserIcon } from '@heroicons/react/24/outline';
 import AwardedContractBarChart from './awarded_contract_barchart';
 import RegionSectorMalaysiaMapChart from './region_sector_chart';
 import malaysiaMap from '../assets/malaysia_map.png';
+import TotalAwardedContracts from './total_awarded_contracts';
+import ContractsRegion from './region_with_most_contract';
+import MinistryWithMostContracts from './ministry_with_most_contracts';
 
 const ProcurementDashboard = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -26,32 +28,13 @@ const ProcurementDashboard = () => {
             <h3 className="text-lg font-semibold">Total Current Tenders</h3>
             <div className="flex items-baseline mt-4">
               <p className="text-2xl font-bold mr-20">85</p>
-              <ChevronUpIcon className="h-3 w-3 text-orange-600 mr-2" />
-              <p className="text-sm text-gray-600">+15 since last week</p>
+              <ChevronUpIcon className="h-3 w-3 text-orange-600 mr-2 -ml-12" />
+              <p className="text-sm text-gray-600">+15 since last month</p>
             </div>
           </div>
-          <div className="bg-white p-6 rounded-lg shadow-md">
-            <h2 className="text-lg font-semibold">Total Awarded Contracts</h2>
-            <div className="flex items-center justify-between">
-              <p className="text-2xl font-bold">95</p>
-              <img src={totalAwardPic} alt="totalAward" className="h-16 w-24 ml-4" />
-            </div>
-          </div>
-          <div className="bg-white p-6 rounded-lg shadow-md">
-            <h2 className="text-lg font-semibold">Region with Most Contracts</h2>
-            <p className="text-2xl font-bold  mt-4">45 in Selangor</p>
-          </div>
-          <div className="bg-white p-6 rounded-lg shadow-md">
-            <h2 className="text-lg font-semibold">Upcoming Tender Closure</h2>
-            <div className="flex items-baseline mt-2">
-              <CheckIcon className="h-4 w-4 text-black-600 mr-2" />
-              <p className="text-xl font-bold">Project A - 1/1/2024</p>
-            </div>
-            <div className="flex items-baseline mt-2">
-              <CheckIcon className="h-4 w-4 text-black-600 mr-2" />
-              <p className="text-xl font-bold">Project B - 1/1/2024</p>
-            </div>
-          </div>
+          <TotalAwardedContracts/>
+          <ContractsRegion/>
+          <MinistryWithMostContracts/>
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-5 font-roboto">
           <div className="bg-white p-6 rounded-lg shadow-md mb-6">
@@ -67,7 +50,7 @@ const ProcurementDashboard = () => {
                   name="minRange"
                   min="1"
                   max="40"
-                  defaultValue="1"
+                  defaultValue=""
                   className="w-16 border border-gray-300 rounded-md px-2"
                 />
                 <label htmlFor="maxRange" className="text-sm font-medium text-gray-700">
@@ -79,7 +62,7 @@ const ProcurementDashboard = () => {
                   name="maxRange"
                   min="1"
                   max="20"
-                  defaultValue="20"
+                  defaultValue=""
                   className="w-16 border border-gray-300 rounded-md px-2"
                 />
               </div>
@@ -120,12 +103,12 @@ const ProcurementDashboard = () => {
                 <input
                   type="text"
                   placeholder="Search..."
-                  className="border rounded px-2 py-1 text-sm focus:outline-none focus:ring"
+                  className="border rounded px-2 py-1 text-sm focus:outline-none focus:ring w-full"
                 />
               </div>
               <div className="flex items-center mr-4">
                 <label className="mr-2 text-sm">Region</label>
-                <select className="border rounded px-2 py-1 text-sm focus:outline-none focus:ring">
+                <select className="border rounded px-2 py-1 text-sm focus:outline-none focus:ring w-full">
                   <option value="">All</option>
                   <option value="Johor">Johor</option>
                   <option value="Selangor">Selangor</option>
@@ -135,7 +118,7 @@ const ProcurementDashboard = () => {
               </div>
               <div className="flex items-center">
                 <label className="mr-2 text-sm">Contracting Agency</label>
-                <select className="border rounded px-2 py-1 text-sm focus:outline-none focus:ring">
+                <select className="border rounded px-2 py-1 text-sm focus:outline-none focus:ring w-full">
                   <option value="">All</option>
                   <option value="Ministry of Housing and Local Government">Ministry of Housing and Local Government</option>
                   <option value="Johor State Public Works Department">Johor State Public Works Department</option>
