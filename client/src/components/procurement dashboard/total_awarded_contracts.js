@@ -20,7 +20,7 @@ const TotalAwardedContracts = () => {
   return (
     <div className="bg-white p-6 rounded-lg shadow-md">
       <h3 className="text-lg font-semibold">Total Awarded Contracts</h3>
-      <div className="flex items-baseline mt-4">
+      <div className="flex items-center mt-4">
         <p className="text-2xl font-bold mr-20">{currentMonthCount}</p>
         {status === 'positive' ? (
           <>
