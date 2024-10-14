@@ -1,13 +1,28 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
 import ProcurementDashboard from './components/procurement dashboard/procurement_dashboard';
 import reportWebVitals from './reportWebVitals';
+import CurrentTenderPage from './components/procurement dashboard/current_tender_page';
 
+const router = createBrowserRouter([
+  {
+    path:"/",
+    element: <ProcurementDashboard />
+  },
+  {
+    path:"/current_tender_page",
+    element: <CurrentTenderPage/>
+  }
+])
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <ProcurementDashboard />
+    <RouterProvider router={router} />
   </React.StrictMode>
 );
 

@@ -1,24 +1,25 @@
 import React, { useState } from 'react';
 import Projectlogo from '../assets/Logo.png';
 import { HomeIcon, CircleStackIcon, EyeIcon, ChartBarSquareIcon, FlagIcon, CheckCircleIcon, QuestionMarkCircleIcon, QueueListIcon } from '@heroicons/react/24/outline';
+import { Link } from "react-router-dom";
 
 const Sidebar = ({ onSidebarToggle }) => {
     const [isOpen, setIsOpen] = useState(false);
 
     const handleMouseEnter = () => {
         setIsOpen(true);
-        onSidebarToggle(true); // Notify the parent component that the sidebar is open
+        onSidebarToggle(true);
     };
 
     const handleMouseLeave = () => {
         setIsOpen(false);
-        onSidebarToggle(false); // Notify the parent component that the sidebar is closed
+        onSidebarToggle(false);
     };
 
     return (
-        <div 
+        <div
             className={`${isOpen ? 'w-64' : 'w-20'} h-full bg-white shadow-md fixed transition-all duration-300`}
-            onMouseEnter={handleMouseEnter} 
+            onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
         >
             <div className="flex items-center justify-center h-24 border-b">
@@ -29,10 +30,12 @@ const Sidebar = ({ onSidebarToggle }) => {
                     <HomeIcon className={`h-6 w-6 text-gray-600 mr-2 ${!isOpen ? 'h-7 w-7' : ''}`} />
                     {isOpen && <span className="text-tblue">Main Dashboard</span>}
                 </li>
-                <li className={`py-4 px-4 my-2 bg-orange-100 hover:bg-orange-200 cursor-pointer flex items-center ${isOpen ? '' : 'justify-center'}`}>
-                    <CircleStackIcon className={`h-6 w-6 text-gray-600 mr-2 ${!isOpen ? 'h-7 w-7' : ''}`} />
-                    {isOpen && <span className="text-tblue">Procurement Transparency</span>}
-                </li>
+                <Link to='/'>
+                    <li className={`py-4 px-4 my-2 bg-orange-100 hover:bg-orange-200 cursor-pointer flex items-center ${isOpen ? '' : 'justify-center'}`}>
+                        <CircleStackIcon className={`h-6 w-6 text-gray-600 mr-2 ${!isOpen ? 'h-7 w-7' : ''}`} />
+                        {isOpen && <span className="text-tblue">Procurement Transparency</span>}
+                    </li>
+                </Link>
                 <li className={`py-4 px-4 my-2 hover:bg-gray-200 cursor-pointer flex items-center ${isOpen ? '' : 'justify-center'}`}>
                     <EyeIcon className={`h-6 w-6 text-gray-600 mr-2 ${!isOpen ? 'h-7 w-7' : ''}`} />
                     {isOpen && <span className="text-tblue">Risk Management</span>}
