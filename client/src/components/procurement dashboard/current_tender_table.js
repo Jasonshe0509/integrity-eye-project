@@ -1,30 +1,35 @@
 import React, { useEffect, useState } from 'react';
 import { UserIcon } from '@heroicons/react/24/outline';
 
-const CurrentTendersTable = () => {
+const CurrentTendersTable = ({ selectedMonth, selectedYear }) => {
   const [tenders, setTenders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch('http://localhost:5000/current-tenders')
-      .then((response) => {
+    const fetchTenders = async () => {
+      setLoading(true);
+      try {
+        const response = await fetch(`http://localhost:5000/current-tenders?month=${selectedMonth}&year=${selectedYear}`);
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
-        return response.json();
-      })
-      .then((data) => {
-        console.log('Fetched Tenders:', data);  // Add this line
+        const data = await response.json();
+        console.log('Fetched Tenders:', data); // Debugging: Check fetched data
         setTenders(data);
-        setLoading(false);
-      })
-      .catch((error) => {
+      } catch (error) {
         console.error('Error fetching tenders:', error);
         setError(error);
+      } finally {
         setLoading(false);
-      });
-  }, []);
+      }
+    };
+
+    // Only fetch if month and year are defined
+    if (selectedMonth && selectedYear) {
+      fetchTenders();
+    }
+  }, [selectedMonth, selectedYear]); // Re-fetch when selectedMonth or selectedYear changes
 
   if (loading) {
     return <div>Loading...</div>;
@@ -55,15 +60,12 @@ const CurrentTendersTable = () => {
                 <td className="border text-sm px-4 py-2 truncate max-w-xs" title={tender['Tender ID']}>{tender['Tender ID']}</td>
                 <td className="border text-sm px-4 py-2 truncate max-w-xs" title={tender['Project Name']}>{tender['Project Name']}</td>
                 <td className="border text-sm px-4 py-2 truncate max-w-xs" title={tender['Closing Date']}>{tender['Closing Date']}</td>
-                {/* <td className="border text-sm px-4 py-2 truncate max-w-xs" title={tender['Eligibility Criteria']}>{tender['Eligibility Criteria']}</td> */}
                 <td className="border text-sm px-4 py-2 truncate max-w-xs" title={tender['Eligibility Criteria']}>-</td>
-                {/* <td className="border text-sm px-4 py-2 truncate max-w-xs" title={tender['Region']}>{tender['Region']}</td> */}
                 <td className="border text-sm px-4 py-2 truncate max-w-xs" title={tender['Region']}>-</td>
                 <td className="border text-sm px-4 py-2 truncate max-w-xs" title={tender['Contracting Agency']}>{tender['Contracting Agency']}</td>
                 <td className="border text-sm px-4 py-2 truncate max-w-xs">
                   <div className="flex items-center">
                     <UserIcon className="h-6 w-6 text-gray-600 mr-2" />
-                    {/* <span className="truncate" title={tender['Contact Person']}>{tender['Contact Person']}</span> */}
                     <span className="truncate" title={tender['Contact Person']}>-</span>
                   </div>
                 </td>

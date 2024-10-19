@@ -13,6 +13,9 @@ module.exports = {
         lato: ['Lato', 'sans-serif'],
         roboto: ['Roboto', 'sans-serif'],
       },
+      maxWidth: {
+        'xxs': '10rem', // Add your custom size
+      }
     },
   },
   plugins: [],

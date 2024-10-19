@@ -4,15 +4,43 @@ import AwardedContractBarChart from './awarded_contract_barchart';
 import TotalAwardedContracts from './total_awarded_contracts';
 import ContractsRegion from './region_with_most_contract';
 import MinistryWithMostContracts from './ministry_with_most_contracts';
-import TotalCurrentTenders from './total_current_tenders';
+import TotalAdvertisementTenders from './total_current_tenders';
 import CurrentTendersTable from './current_tender_table.js';
 import { ArrowsPointingOutIcon, MegaphoneIcon } from '@heroicons/react/24/outline';
 import { Link } from "react-router-dom";
 import Heatmap from './heatmap.js';
+import Header from '../navigation/header.js';
 
 
 const ProcurementDashboard = () => {
+  // Get the current month and year
+  const currentDate = new Date();
+  const currentMonth = String(currentDate.getMonth() + 1).padStart(2, '0'); // Month is 0-indexed
+  const currentYear = currentDate.getFullYear();
+
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [selectedMonth, setSelectedMonth] = useState(currentMonth);
+  const [selectedYear, setSelectedYear] = useState(currentYear);
+
+  // Month options
+  const months = [
+    { value: '', label: 'Select Month' },
+    { value: '01', label: 'January' },
+    { value: '02', label: 'February' },
+    { value: '03', label: 'March' },
+    { value: '04', label: 'April' },
+    { value: '05', label: 'May' },
+    { value: '06', label: 'June' },
+    { value: '07', label: 'July' },
+    { value: '08', label: 'August' },
+    { value: '09', label: 'September' },
+    { value: '10', label: 'October' },
+    { value: '11', label: 'November' },
+    { value: '12', label: 'December' },
+  ];
+
+  // Year options (for example, from 2020 to the current year)
+  const years = Array.from({ length: currentYear - 2019 }, (_, i) => currentYear - i);
 
   return (
     <div className="flex flex-col lg:flex-row">
@@ -20,11 +48,28 @@ const ProcurementDashboard = () => {
       <Sidebar onSidebarToggle={setIsSidebarOpen} />
       {/* Main Dashboard Content */}
       <div className={`p-6 bg-gray-100 min-h-screen w-full transition-all duration-300 ${isSidebarOpen ? 'lg:ml-64' : 'lg:ml-20'}`}>
-        <div className="flex items-center justify-between mb-4">
-          <h1 className="text-2xl font-bold font-lato">Procurement Transparency Dashboard</h1>
-          <button className=" font-bold font-lato ml-4 px-4 py-2 text-tblue bg-white border border-white rounded-lg shadow-md hover:text-blue-700 transition-all duration-200">
-            Login
-          </button>
+        <Header title={"Procurement Transparency Dashboard"} />
+        {/* Filters Section */}
+        <div className="mb-4 flex gap-4">
+          <select
+            value={selectedYear}
+            onChange={(e) => setSelectedYear(e.target.value)}
+            className=" font-bold font-lato px-4 py-2 bg-white border border-white rounded-lg transition-all duration-200"
+          >
+            <option value="">Select Year</option>
+            {years.map(year => (
+              <option key={year} value={year}>{year}</option>
+            ))}
+          </select>
+          <select
+            value={selectedMonth}
+            onChange={(e) => setSelectedMonth(e.target.value)}
+            className=" font-bold font-lato px-4 py-2 bg-white border border-white rounded-lg transition-all duration-200"
+          >
+            {months.map(month => (
+              <option key={month.value} value={month.value}>{month.label}</option>
+            ))}
+          </select>
         </div>
         <div className="grid grid-cols-1 gap-6 mb-5 font-roboto">
           <div className="bg-white p-6 rounded-lg shadow-md">
@@ -40,32 +85,18 @@ const ProcurementDashboard = () => {
           </div>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6 font-roboto">
-          <TotalCurrentTenders />
-          <TotalAwardedContracts />
-          <ContractsRegion />
-          <MinistryWithMostContracts />
+          <TotalAdvertisementTenders selectedMonth={selectedMonth} selectedYear={selectedYear} />
+          <TotalAwardedContracts selectedMonth={selectedMonth} selectedYear={selectedYear} />
+          <ContractsRegion selectedMonth={selectedMonth} selectedYear={selectedYear} />
+          <MinistryWithMostContracts selectedMonth={selectedMonth} selectedYear={selectedYear} />
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-5 font-roboto">
-          <AwardedContractBarChart />
+          <AwardedContractBarChart selectedMonth={selectedMonth} selectedYear={selectedYear} />
           <div className="bg-white p-6 rounded-lg shadow-md mb-6">
             <div className="flex justify-between items-center">
               <h2 className="text-lg font-semibold">Regions & Sectors</h2>
-              <div className="ml-4">
-                <label htmlFor="sectorDropdown" className="sr-only">
-                  Sector
-                </label>
-                <select
-                  id="sectorDropdown"
-                  name="sectorDropdown"
-                  className="block w-full p-2 border border-white rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                >
-                  <option value="sector1">Sector 1</option>
-                  <option value="sector2">Sector 2</option>
-                  <option value="sector3">Sector 3</option>
-                </select>
-              </div>
             </div>
-            <Heatmap/>
+            <Heatmap />
           </div>
         </div>
         <div className="bg-white p-6 rounded-lg shadow-md">
@@ -79,7 +110,7 @@ const ProcurementDashboard = () => {
               </Link>
             </div>
           </div>
-          <CurrentTendersTable />
+          <CurrentTendersTable selectedMonth={selectedMonth} selectedYear={selectedYear}  />
         </div>
       </div>
     </div >
