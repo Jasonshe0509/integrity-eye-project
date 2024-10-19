@@ -1,29 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { ChevronUpIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
 
-const ContractsRegion = () => {
+const ContractsRegion = ({ selectedMonth, selectedYear }) => {
   const [state, setState] = useState('');
   const [count, setCount] = useState(0);
   const [percentage_difference, setDifference] = useState(0);
   const [status, setStatus] = useState('');
 
   useEffect(() => {
-    const fetchTopState = async () => {
-      try {
-        const response = await axios.get('/top-state');
-        setState(response.data.state);
-        setCount(response.data.count);
-        setDifference(response.data.percentage_difference);
-        setStatus(response.data.status);
-      } catch (error) {
-        console.error('Error fetching top state data:', error);
-      }
+    const fetchData = async () => {
+      const response = await fetch(`/top-state?month=${selectedMonth}&year=${selectedYear}`);
+      const data = await response.json();
+      setState(data.state);
+      setCount(data.count);
+      setDifference(data.percentage_difference);
+      setStatus(data.status);
     };
 
-    fetchTopState();
-  }, []);
-
+    if (selectedMonth && selectedYear) {
+      fetchData().catch(error => console.error('Error fetching data:', error));
+    }
+  }, [selectedMonth, selectedYear]);
   return (
     <div className="bg-white p-6 rounded-lg shadow-md">
       {count != 0 ? (
