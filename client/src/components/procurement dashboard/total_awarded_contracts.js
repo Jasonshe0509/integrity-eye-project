@@ -1,21 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { ChevronUpIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
 
-const TotalAwardedContracts = () => {
+const TotalAwardedContracts = ({ selectedMonth, selectedYear }) => {
   const [currentMonthCount, setCurrentMonthCount] = useState(0);
   const [percentage_difference, setDifference] = useState(0);
   const [status, setStatus] = useState('');
-
   useEffect(() => {
-    fetch('/compare-months')
-      .then((response) => response.json())
-      .then((data) => {
-        setCurrentMonthCount(data.current_month_count);
-        setDifference(data.percentage_difference);
-        setStatus(data.status);
-      })
-      .catch((error) => console.error('Error fetching data:', error));
-  }, []);
+    const fetchData = async () => {
+      const response = await fetch(`/compare-months?month=${selectedMonth}&year=${selectedYear}`);
+      const data = await response.json();
+      setCurrentMonthCount(data.current_month_count);
+      setDifference(data.percentage_difference);
+      setStatus(data.status);
+    };
+    if (selectedMonth && selectedYear) {
+      fetchData().catch(error => console.error('Error fetching data:', error));
+    }
+  }, [selectedMonth, selectedYear]);
+
 
   return (
     <div className="bg-white p-6 rounded-lg shadow-md">

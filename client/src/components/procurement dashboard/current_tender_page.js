@@ -4,6 +4,7 @@ import Sidebar from '../navigation/sidebar';
 import { UserIcon } from '@heroicons/react/24/outline';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
+import Header from '../navigation/header.js';
 
 const CurrentTenderPage = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -80,12 +81,7 @@ const CurrentTenderPage = () => {
         <div className="flex flex-col lg:flex-row">
             <Sidebar onSidebarToggle={setIsSidebarOpen} />
             <div className={`p-6 bg-gray-100 min-h-screen w-full transition-all duration-300 ${isSidebarOpen ? 'lg:ml-64' : 'lg:ml-20'}`}>
-                <div className="flex items-center justify-between mb-4">
-                    <h1 className="text-2xl font-bold font-lato">Tender Advertisement Page</h1>
-                    <button className=" font-bold font-lato ml-4 px-4 py-2 text-tblue bg-white border border-white rounded-lg shadow-md hover:text-blue-700 transition-all duration-200">
-                        Login
-                    </button>
-                </div>
+                <Header title={"Tender Advertisement Page"} />
                 <div className="bg-white p-6 rounded-lg shadow-md">
                     <div className="flex justify-between items-center mb-4">
                         <h2 className="text-lg font-semibold">Current Tenders</h2>
